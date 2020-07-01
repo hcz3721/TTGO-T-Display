@@ -21,7 +21,7 @@
 #define TFT_RST             23
 
 #define TFT_BL              4   // Display backlight control pin
-#define ADC_EN              14  //ADC_EN is the ADC detection enable port
+#define ADC_EN              14  // ADC_EN is the ADC detection enable port
 #define ADC_PIN             34
 #define BUTTON_1            35
 #define BUTTON_2            0
@@ -94,7 +94,9 @@ void showVoltage()
         Serial.println(voltage);
         tft.fillScreen(TFT_BLACK);
         tft.setTextDatum(MC_DATUM);
-        tft.drawString(voltage,  tft.width() / 2, tft.height() / 2 );
+        tft.setTextSize(2);
+        tft.drawString("VOLTAGE:",  tft.width() / 2, tft.height() / 2 -32);
+        tft.drawString((String(battery_voltage) + "V"),  tft.width() / 2, tft.height() / 2 );
     }
 }
 
@@ -142,7 +144,7 @@ void wifi_scan()
     tft.setTextColor(TFT_GREEN, TFT_BLACK);
     tft.fillScreen(TFT_BLACK);
     tft.setTextDatum(MC_DATUM);
-    tft.setTextSize(1);
+    tft.setTextSize(0.5);
 
     tft.drawString("Scan Network", tft.width() / 2, tft.height() / 2);
 
@@ -184,19 +186,22 @@ void setup()
     digitalWrite(ADC_EN, HIGH);
 
     tft.init();
-    tft.setRotation(1);
-    tft.fillScreen(TFT_BLACK);
-    tft.setTextSize(2);
-    tft.setTextColor(TFT_GREEN);
+
+ 
+    //tft.setTextColor(TFT_GREEN);
+    tft.setTextColor(TFT_WHITE);
     tft.setCursor(0, 0);
     tft.setTextDatum(MC_DATUM);
-    tft.setTextSize(1);
+    //tft.setTextDatum(MC_DATUM);
+    //tft.setTextDatum(TR_DATUM);    
+    
+    tft.setTextSize(2);
 
     if (TFT_BL > 0) {                           // TFT_BL has been set in the TFT_eSPI library in the User Setup file TTGO_T_Display.h
         pinMode(TFT_BL, OUTPUT);                // Set backlight pin to output mode
         digitalWrite(TFT_BL, TFT_BACKLIGHT_ON); // Turn backlight on. TFT_BACKLIGHT_ON has been set in the TFT_eSPI library in the User Setup file TTGO_T_Display.h
     }
-
+    tft.setRotation(1);
     tft.setSwapBytes(true);
     tft.pushImage(0, 0,  240, 135, ttgo);
     espDelay(5000);
@@ -225,19 +230,22 @@ void setup()
     }
 
 
-    tft.fillScreen(TFT_BLACK);
-    tft.setTextDatum(MC_DATUM);
 
     //setupSDCard();
 
+    tft.setRotation(0);            //旋转
+    tft.fillScreen(TFT_BLACK);      
+   
 
-    tft.drawString("LeftButton:", tft.width() / 2, tft.height() / 2 - 16);
-    tft.drawString("[WiFi Scan]", tft.width() / 2, tft.height() / 2 );
+    tft.setTextSize(1);
+    tft.drawString("LeftButton:", tft.width() / 2, tft.height() / 2 -40);    
+    tft.drawString("[WiFi Scan]", tft.width() / 2, tft.height() / 2 -20);
+    tft.setTextSize(1);
     tft.drawString("RightButton:", tft.width() / 2, tft.height() / 2 + 16);
     tft.drawString("[Voltage Monitor]", tft.width() / 2, tft.height() / 2 + 32 );
-    tft.drawString("RightButtonLongPress:", tft.width() / 2, tft.height() / 2 + 48);
-    tft.drawString("[Deep Sleep]", tft.width() / 2, tft.height() / 2 + 64 );
-    tft.setTextDatum(TL_DATUM);
+    tft.drawString("RightButtonLongPress:", tft.width() / 2, tft.height() / 2 + 64);
+    tft.drawString("[Deep Sleep]", tft.width() / 2, tft.height() / 2 + 80 );
+    
 }
 
 void loop()
