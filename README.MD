@@ -40,3 +40,4 @@
 
 2019/08/06:
 * The TFT_eSPI and Button2 libraries have been synchronized to the main branch
+Arduino 添加ESP32开发板库(https://dl.espressif.com/dl/package_esp32_index.json)
