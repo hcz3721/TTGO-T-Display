@@ -10,7 +10,7 @@
 
 * Like the picture below
 
-![2.png](image/2.png)
+![2.png](https://github.com/hcz3721/TTGO-T-Display/blob/master/2.png)
 
 
 ## 3.Board choose
