@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include <Button2.h>
 #include "esp_adc_cal.h"
-#include "bmp.h"
+#include "bmp2.h"
 
 #ifndef TFT_DISPOFF
 #define TFT_DISPOFF 0x28
@@ -86,17 +86,21 @@ void espDelay(int ms)
 void showVoltage()
 {
     static uint64_t timeStamp = 0;
+    int r = digitalRead(TFT_BL);
     if (millis() - timeStamp > 1000) {
         timeStamp = millis();
         uint16_t v = analogRead(ADC_PIN);
         float battery_voltage = ((float)v / 4095.0) * 2.0 * 3.3 * (vref / 1000.0);
         String voltage = "Voltage :" + String(battery_voltage) + "V";
         Serial.println(voltage);
-        tft.fillScreen(TFT_BLACK);
+        tft.fillRect(30,110,80,20,TFT_BLACK);
         tft.setTextDatum(MC_DATUM);
         tft.setTextSize(2);
         tft.drawString("VOLTAGE:",  tft.width() / 2, tft.height() / 2 -32);
         tft.drawString((String(battery_voltage) + "V"),  tft.width() / 2, tft.height() / 2 );
+        digitalWrite(TFT_BL, !r);
+
+        
     }
 }
 
@@ -108,6 +112,7 @@ void button_init()
         tft.fillScreen(TFT_BLACK);
         tft.setTextColor(TFT_GREEN, TFT_BLACK);
         tft.setTextDatum(MC_DATUM);
+        tft.setTextSize(1);
         tft.drawString("Press again to wake up",  tft.width() / 2, tft.height() / 2 );
         espDelay(6000);
         digitalWrite(TFT_BL, !r);
@@ -123,6 +128,9 @@ void button_init()
     });
     btn1.setPressedHandler([](Button2 & b) {
         Serial.println("Detect Voltage..");
+        
+        tft.fillScreen(TFT_BLACK);
+     
         btnCick = true;
     });
 
@@ -205,7 +213,7 @@ void setup()
     tft.setSwapBytes(true);
     tft.pushImage(0, 0,  240, 135, ttgo);
     espDelay(5000);
-
+  
 
     tft.setRotation(0);
     tft.fillScreen(TFT_RED);
