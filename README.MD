@@ -18,7 +18,7 @@
 
 ## 4. SD card connection
 - Demonstrate how to use the second SPI device, using the SD card as a demonstration device
-![](image/SD.jpg)
+![](https://github.com/hcz3721/TTGO-T-Display/blob/master/SD.jpg)
 
 ## Pinout
 | Name       | V18    |
@@ -41,4 +41,5 @@
 2019/08/06:
 * The TFT_eSPI and Button2 libraries have been synchronized to the main branch
 ## 5[Arduino] 添加ESP32开发板库(https://dl.espressif.com/dl/package_esp32_index.json)
-## 6[在线转img](http://www.rinkydinkelectronics.com/t_imageconverter565.php)
+## 6[img在线转.c](http://www.rinkydinkelectronics.com/t_imageconverter565.php)
+- [](https://github.com/hcz3721/TTGO-T-Display/blob/master/YyJqeyDoqr.png)
